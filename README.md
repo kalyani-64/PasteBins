@@ -1,16 +1,32 @@
 # Pastebin
 
-Pastebin- is a lightweight Pastebin-style web application that allows users to create text pastes and share them via a unique URL.  
-Each paste can optionally expire after a given time (TTL) or after a maximum number of views.
+Pastebin is a lightweight Pastebin-style web application that allows users to create text pastes and share them via a unique URL.  
+Each paste can optionally expire after a specified time (TTL) or after reaching a maximum number of views.
 
-This project was built as part of a company take-home assignment and follows the provided API and testing specifications.
+This project was built as part of a company take-home assignment and adheres to the provided API contracts, persistence requirements, and automated testing expectations.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Persistence Layer](#persistence-layer)
+- [Design Decisions](#design-decisions)
+- [Roadmap & Status](#roadmap--status)
+- [Contributing](#contributing)
+- [Contact](#contact)
+- [License](#license)
 
 ---
 
 ## Features
 
 - Create a paste containing arbitrary text
-- Generate a unique, shareable URL for each paste
+- Generate a unique, shareable URL
 - View a paste via browser or API
 - Optional paste constraints:
   - Time-based expiry (TTL)
@@ -20,20 +36,20 @@ This project was built as part of a company take-home assignment and follows the
 
 ---
 
-## Tech Stack
+## Technologies Used
 
 ### Frontend
 - React
+- Vite
 - React Router
-- Fetch API
+- Tailwind CSS
 
 ### Backend
 - Node.js
 - Express.js
 
-### Persistence Layer
-- **Redis (Upstash)**  
-  Used to persist paste data across requests and ensure compatibility with serverless environments.
+### Persistence
+- Redis (Upstash)
 
 ---
 
@@ -47,37 +63,60 @@ pastebin/
 │
 ├── frontend/
 │ ├── src/
-│ │ ├── App.js
-│ │ ├── CreatePaste.js
-│ │ ├── ViewPaste.js
-│ │ └── index.js
+│ │ ├── App.jsx
+│ │ ├── CreatePaste.jsx
+│ │ ├── ViewPaste.jsx
+│ │ └── main.jsx
+│ ├── index.html
+│ ├── vite.config.js
 │ └── package.json
 │
 ├── README.md
 
+yaml
+Copy code
 
+---
 
+## Installation
 
-Running the Project Locally
-Backend:
+Follow the steps below to set up the project locally.
+
+### Prerequisites
+- Node.js (v18 or later)
+- npm
+- Redis (or Upstash Redis URL)
+
+---
+
+### Backend Setup
+
+```bash
 cd backend
 npm install
 npm start
+The backend server will start on the configured port.
 
-Frontend:
+Frontend Setup (Vite)
+bash
+Copy code
 cd frontend
-npm create vite
-select react and javascript 
+npm install
 npm run dev
+The frontend will be available on the Vite development server.
 
+Tailwind CSS Setup
+Tailwind CSS is used for styling.
 
-for styling i have used Tailwind CSS:
-1. Install Tailwind CSS
-You need the main library and the Vite plugin (assuming you used Vite to create your React app):
+Install Tailwind and the Vite plugin:
+
+bash
+Copy code
 npm install tailwindcss @tailwindcss/vite
-2. Configure the Vite Plugin
-Open your vite.config.js (or .ts) file and add the Tailwind plugin
+Configure vite.config.js:
 
+js
+Copy code
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -88,7 +127,59 @@ export default defineConfig({
     tailwindcss(),
   ],
 })
-3. Import Tailwind in your CSS
-Open your main CSS file (usually src/index.css) and add this single line at the top. This replaces the old @tailwind base; directives:
-@import "tailwindcss";
+Import Tailwind in src/index.css:
 
+css
+Copy code
+@import "tailwindcss";
+Usage
+Open the frontend in your browser.
+
+Enter text to create a new paste.
+
+Submit to receive a unique shareable URL.
+
+Open the URL to view the paste.
+
+Pastes automatically expire based on TTL or view limits.
+
+Persistence Layer
+This application uses Redis (Upstash) to store paste data.
+
+Ensures data persistence across requests
+
+Compatible with serverless deployment environments
+
+Prevents data loss during automated testing
+
+Design Decisions
+RESTful API design to align with automated test requirements
+
+Redis chosen for persistence reliability in serverless setups
+
+Deterministic time support using TEST_MODE for expiry testing
+
+Minimal UI design, as visual styling is not a grading criterion
+
+Roadmap & Status
+Current Status: Completed and functional
+Planned Enhancements:
+
+User authentication
+
+Syntax highlighting for code pastes
+
+Paste search functionality
+
+Docker support
+
+Contributing
+Contributions are welcome.
+
+Fork the repository
+
+Create a new branch
+
+Commit your changes
+
+Open a pull request
