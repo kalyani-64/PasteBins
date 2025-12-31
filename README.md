@@ -92,5 +92,3 @@ export default defineConfig({
 Open your main CSS file (usually src/index.css) and add this single line at the top. This replaces the old @tailwind base; directives:
 @import "tailwindcss";
 
-## Project Structure
-
